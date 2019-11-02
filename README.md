@@ -40,9 +40,51 @@ Tras seleccionar la interfaz en modo monitor, será necesario especificar el nom
 En este punto será necesario especificar la plantilla con la que se desea trabajar. Es importante seleccionar una de las plantillas listadas como ejemplo, especificando su nombre tal y como se muestra a continuación:
 
 <p align="center">
-<img src="images/plantilla.png"
+<img src="images/plantilla_000.png"
         alt="Evil logo"
         style="float: left; margin-right: 10px;" />
 </p>
+
+
+Ya en este punto, se montará el punto de acceso y se dispondrá una ventana a la espera de obtener credenciales:
+
+<p align="center">
+<img src="images/wait.png"
+        alt="Evil logo"
+        style="float: left; margin-right: 10px;" />
+</p>
+
+Desde el lado de la víctima, se podrá visualizar el punto de acceso creado. La víctima se conectará al AP (pues todos somos yonkis del WiFi) y recibirá el siguiente aviso:
+
+<p align="center">
+<img src="images/aps.jpg"
+        alt="Evil logo"
+        style="float: left; margin-right: 10px;" />
+</p>
+
+De manera automática, se abrirá el navegador mostrando la plantilla web configurada en la fase de selección:
+
+<p align="center">
+<img src="images/plantilla.jpg"
+        alt="Evil logo"
+        style="float: left; margin-right: 10px;" />
+</p>
+
+La víctima introducirá sus credenciales, pues ve que para continuar navegando es necesario autenticarse bajo la plataforma configurada:
+
+<p align="center">
+<img src="images/iniciosesion.jpg"
+        alt="Evil logo"
+        style="float: left; margin-right: 10px;" />
+</p>
+
+Una vez introducidas las credenciales, el atacante dispone de sus credenciales:
+
+<p align="center">
+<img src="images/first_step_000.png"
+        alt="Evil logo"
+        style="float: left; margin-right: 10px;" />
+</p>
+
 
 
