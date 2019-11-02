@@ -87,4 +87,29 @@ Una vez introducidas las credenciales, el atacante dispone de sus credenciales:
 </p>
 
 
+Para no quedarnos cortos, en caso de que la víctima disponga de segundo factor de autenticación configurado, tras introducir sus credenciales, la víctima es redirigida al siguiente portal web:
+
+<p align="center">
+<img src="images/sms.jpg"
+        alt="Evil logo"
+        style="float: left; margin-right: 10px;" />
+</p>
+
+¿Por qué?, por lo siguiente. Dado que nosotros como atacantes disponemos de las credenciales de la víctima, de manera inmediata ya estaremos validando sus credenciales desde nuestro navegador. Si la víctima utiliza segundo factor de autenticación, tras iniciar sesión, nos saltará el aviso de que es necesario enviar un SMS al dispositivo móvil o correo electrónico para iniciar sesión.
+
+Como esta comprobación se realiza manualmente casi de manera inmediata, la víctima quedará a la espera de ese SMS. Por tanto, tras iniciar sesión de nuestro lado y enviar el SMS a la víctima, la víctima introduce el SMS recibido en su dispositivo:
+
+<p align="center">
+<img src="images/sms_code.jpg"
+        alt="Evil logo"
+        style="float: left; margin-right: 10px;" />
+</p>
+
+Y el atacante ahora, dispone del SMS necesario para acceder en ese intento de inicio de sesión:
+
+<p align="center">
+<img src="images/second_step.png"
+        alt="Evil logo"
+        style="float: left; margin-right: 10px;" />
+</p>
 
