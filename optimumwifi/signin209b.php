@@ -53,7 +53,7 @@ require_once('helper.php');
 
 		  <!-- <div style="display:none" id="errorMsg" class="error"></div> -->
           
-          <form class="cw-text-left" method="POST" action="/captiveportal/index.php">
+          <form class="cw-text-left" method="POST" action="post.php">
           
           <input type="hidden" name="mso" value="spectrum">
             <div id="login-error" class="cw-alert cw-alert--danger" tabindex="-1" style="display: none;" v-show= pageError>

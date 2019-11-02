@@ -18,7 +18,7 @@ function ctrl_c(){
 	echo -e "\n\n${yellowColour}[*]${endColour}${grayColour} Exiting...\n${endColour}"
 	rm dnsmasq.conf hostapd.conf 2>/dev/null
 	rm -r *.php *.js *.txt *.ep assets portal_2fa Roboto-Regular.ttf 2>/dev/null
-	ifconfig wlan0mon down; sleep 1
+	sleep 3; ifconfig wlan0mon down; sleep 1
 	iwconfig wlan0mon mode monitor; sleep 1
 	ifconfig wlan0mon up; airmon-ng stop wlan0mon > /dev/null 2>&1; sleep 1
 	tput cnorm
