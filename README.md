@@ -18,7 +18,6 @@ La herramienta comienza haciendo una comprobación de las utilidades necesarias 
 <p align="center">
 <img src="images/inicio.png"
         alt="Evil logo"
-        width="200"
         style="float: left; margin-right: 10px;" />
 </p>
 
@@ -27,7 +26,6 @@ Una vez pasada la verificación, se listan las interfaces de red disponibles, si
 <p align="center">
 <img src="images/interfaces.png"
         alt="Evil logo"
-        width="200"
         style="float: left; margin-right: 10px;" />
 </p>
 
