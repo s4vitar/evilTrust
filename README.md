@@ -7,7 +7,7 @@
 	style="float: left; margin-right: 10px;" />
 </p>
 
-Herramienta ideal para el despliegue automatizado de un **Rogue AP** con capacidad de selección de plantilla.
+Herramienta ideal para el despliegue automatizado de un **Rogue AP** con capacidad de selección de plantilla + 2FA.
 
 Esta herramienta dispone de varias plantillas a utilizar, incluyendo una opción de plantilla personalizada, donde el atacante es capaz de desplegar su propia plantilla.
 
