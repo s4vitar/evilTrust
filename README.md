@@ -21,11 +21,21 @@ La herramienta comienza haciendo una comprobación de las utilidades necesarias 
         style="float: left; margin-right: 10px;" />
 </p>
 
-Una vez pasada la verificación, se listan las interfaces de red disponibles, siendo necesario en este punto seleccionar la interfaz configurada en modo monitor:
+Una vez pasada la verificación, se listan las interfaces de red disponibles, siendo necesario en este punto seleccionar la interfaz configurada en modo monitor (se configura de manera automática):
 
 <p align="center">
 <img src="images/interfaces.png"
         alt="Evil logo"
         style="float: left; margin-right: 10px;" />
 </p>
+
+Tras seleccionar la interfaz en modo monitor, será necesario especificar el nombre del punto de acceso que se desee crear así como el canal en el que se desea que opere. Una vez especificado, se configurará la interfaz en modo monitor para que opere como router, asignado como puerta de enlace predeterminada la dirección IP **192.168.1.1** y actuando en modo **DHCP**.
+
+<p align="center">
+<img src="images/config.png"
+        alt="Evil logo"
+        width="200"
+        style="float: left; margin-right: 10px;" />
+</p>
+
 
