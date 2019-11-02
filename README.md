@@ -11,6 +11,8 @@ Herramienta ideal para el despliegue automatizado de un **Rogue AP** con capacid
 
 Esta herramienta dispone de varias plantillas a utilizar, incluyendo una opción de plantilla personalizada, donde el atacante es capaz de desplegar su propia plantilla.
 
+**IMPORTANTE**: No es necesario contar con una conexión cableada, por lo que es posible desplegar el ataque desde cualquier lado en cualquier momento.
+
 ¿Cómo funciona?
 ======
 La herramienta comienza haciendo una comprobación de las utilidades necesarias para desplegar el ataque:
@@ -54,7 +56,7 @@ Ya en este punto, se montará el punto de acceso y se dispondrá una ventana a l
         style="float: left; margin-right: 10px;" />
 </p>
 
-Desde el lado de la víctima, se podrá visualizar el punto de acceso creado. La víctima se conectará al AP (pues todos somos yonkis del WiFi) y recibirá el siguiente aviso:
+Desde el lado de la víctima, se podrá visualizar el punto de acceso creado. La víctima se conectará al AP (pues todos somos yonkis del WiFi :P) y recibirá el siguiente aviso:
 
 <p align="center">
 <img src="images/aps.jpg"
@@ -70,7 +72,7 @@ De manera automática, se abrirá el navegador mostrando la plantilla web config
         style="float: left; margin-right: 10px;" />
 </p>
 
-La víctima introducirá sus credenciales, pues ve que para continuar navegando es necesario autenticarse bajo la plataforma configurada:
+La víctima introducirá sus credenciales, pues ve que para continuar navegando es necesario autenticarse bajo la plataforma seleccionada:
 
 <p align="center">
 <img src="images/iniciosesion.jpg"
@@ -97,7 +99,7 @@ Para no quedarnos cortos, en caso de que la víctima disponga de segundo factor 
 
 ¿Por qué?, por lo siguiente. Dado que nosotros como atacantes disponemos de las credenciales de la víctima, de manera inmediata ya estaremos validando sus credenciales desde nuestro navegador. Si la víctima utiliza segundo factor de autenticación, tras iniciar sesión, nos saltará el aviso de que es necesario enviar un SMS al dispositivo móvil o correo electrónico para iniciar sesión.
 
-Como esta comprobación se realiza manualmente casi de manera inmediata, la víctima quedará a la espera de ese SMS. Por tanto, tras iniciar sesión de nuestro lado y enviar el SMS a la víctima, la víctima introduce el SMS recibido en su dispositivo:
+Como esta comprobación puede realizarse manualmente casi de manera inmediata, la víctima quedará a la espera de ese SMS. Por tanto, tras iniciar sesión de nuestro lado y enviar el SMS a la víctima, la víctima introduce el SMS recibido en su dispositivo:
 
 <p align="center">
 <img src="images/sms_code.jpg"
@@ -105,11 +107,13 @@ Como esta comprobación se realiza manualmente casi de manera inmediata, la víc
         style="float: left; margin-right: 10px;" />
 </p>
 
-Y el atacante ahora, dispone del SMS necesario para acceder en ese intento de inicio de sesión:
+Y el atacante ahora, dispone del SMS necesario para acceder a su cuenta en ese intento de inicio de sesión:
 
 <p align="center">
 <img src="images/second_step.png"
         alt="Evil logo"
         style="float: left; margin-right: 10px;" />
 </p>
+
+Dado que son múltiples plantillas, todos los datos recibidos están distinguidos por etiquetas que relacionan al portal que se está usando.
 
