@@ -76,7 +76,8 @@ function startAttack(){
 	done; tput cnorm && echo -ne "\n${yellowColour}[*]${endColour}${blueColour} Interfaz de red a utilizar (${endColour}${redColour}Es necesario que esté en modo monitor${endColour}${blueColour}): ${endColour}" && read myInterface
 	choosed_interface=$(sed ''$myInterface'q;d' iface)
 	rm iface 2>/dev/null
-	echo $choosed_interface
+	echo -ne "\n${yellowColour}[*]${endColour}${grayColour} Nombre del punto de acceso a utilizar:${endColour} " && read -r use_ssid
+	echo -ne "${yellowColour}[*]${endColour}${grayColour} Canal a utilizar:${endColour} " && read use_channel
 
 }
 
