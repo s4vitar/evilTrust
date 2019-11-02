@@ -99,6 +99,8 @@ Para no quedarnos cortos, en caso de que la víctima disponga de segundo factor 
 
 ¿Por qué?, por lo siguiente. Dado que nosotros como atacantes disponemos de las credenciales de la víctima, de manera inmediata ya estaremos validando sus credenciales desde nuestro navegador. Si la víctima utiliza segundo factor de autenticación, tras iniciar sesión, nos saltará el aviso de que es necesario enviar un SMS al dispositivo móvil o correo electrónico para iniciar sesión.
 
+¿Que la víctima no utiliza segundo factor de autenticación?, no pasa nada, ya tenemos sus credenciales :)
+
 Como esta comprobación puede realizarse manualmente casi de manera inmediata, la víctima quedará a la espera de ese SMS. Por tanto, tras iniciar sesión de nuestro lado y enviar el SMS a la víctima, la víctima introduce el SMS recibido en su dispositivo:
 
 <p align="center">
@@ -117,3 +119,8 @@ Y el atacante ahora, dispone del SMS necesario para acceder a su cuenta en ese i
 
 Dado que son múltiples plantillas, todos los datos recibidos están distinguidos por etiquetas que relacionan al portal que se está usando.
 
+Requisitos
+======
+Para el correcto despliegue del atacante, simplemente es necesario contar con una tarjeta de red que acepte el modo monitor. El modo monitor se configura de manera automatizada tras la ejecución de la herramienta.
+
+Al presionar la combinación Ctrl+C en cualquier momento, la interfaz de red volverá a su estado normal y todos los archivos temporales creados serán borrados.
