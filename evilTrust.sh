@@ -37,14 +37,14 @@ function dependencies(){
 		let counter+=1
 	else
 		echo -e "\t${redColour}[X]${endColour}${grayColour} La herramienta${endColour}${yellowColour} php${endColour}${grayColour} no se encuentra instalada"
-	fi; sleep 1
+	fi; sleep 0.4
 
         if [ "$(command -v dnsmasq)" ]; then
                 echo -e ". . . . . . . . ${blueColour}[V]${endColour}${grayColour} La herramienta${endColour}${yellowColour} dnsmasq${endColour}${grayColour} se encuentra instalada"
                 let counter+=1
         else
                 echo -e "\t${redColour}[X]${endColour}${grayColour} La herramienta${endColour}${yellowColour} dnsmasq${endColour}${grayColour} no se encuentra instalada"
-        fi; sleep 1
+        fi; sleep 0.4
 
         if [ "$(command -v hostapd)" ]; then
                 echo -e ". . . . . . . . ${blueColour}[V]${endColour}${grayColour} La herramienta${endColour}${yellowColour} hostapd${endColour}${grayColour} se encuentra instalada"
@@ -62,12 +62,28 @@ function dependencies(){
 	fi
 }
 
+function startAttack(){
+	clear; if [[ -e credenciales.txt ]]; then
+		rm -rf credenciales.txt
+	fi; interface=$(ifconfig -a | cut -d ' ' -f 1 | xargs | tr ' ' '\n' | tr -d ':' > iface)
+
+	echo -e "\n${yellowColour}[*]${endColour} ${purpleColour}Listando interfaces de red disponibles...${endColour}"; sleep 1
+
+	counter=1
+	for interface in $(cat iface); do
+		echo -e "\t\n${blueColour}$counter.${endColour}${yellowColour} $interface${endColour}"; sleep 0.26
+		let counter++
+	done; tput cnorm && echo -ne "\n${yellowColour}[*]${endColour}${blueColour} Interfaz de red a utilizar (${endColour}${redColour}Es necesario que esté en modo monitor${endColour}${blueColour}): ${endColour}" && read myInterface
+	rm iface 2>/dev/null
+
+}
 
 # Main Program
 
 if [ "$(id -u)" == "0" ]; then
-	banner
+	tput civis; banner
 	dependencies
+	startAttack
 else
 	echo -e "\n${redColour}[!] Es necesario ser root para ejecutar la herramienta${endColour}"
 	exit 1
