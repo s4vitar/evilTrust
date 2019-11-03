@@ -94,11 +94,19 @@ function startAttack(){
 
 	# Si la interfaz posee otro nombre, cambiarlo en este punto (consideramos que se llama wlan0 por defecto)
 	airmon-ng start wlan0 > /dev/null 2>&1; interface=$(ifconfig -a | cut -d ' ' -f 1 | xargs | tr ' ' '\n' | tr -d ':' > iface)
-	counter=1
-	for interface in $(cat iface); do
+	counter=1; for interface in $(cat iface); do
 		echo -e "\t\n${blueColour}$counter.${endColour}${yellowColour} $interface${endColour}"; sleep 0.26
 		let counter++
-	done; tput cnorm && echo -ne "\n${yellowColour}[*]${endColour}${blueColour} Nombre de la interfaz (Ej: wlan0mon): ${endColour}" && read choosed_interface
+	done; tput cnorm
+	checker=0; while [ $checker -ne 1 ]; do
+		echo -ne "\n${yellowColour}[*]${endColour}${blueColour} Nombre de la interfaz (Ej: wlan0mon): ${endColour}" && read choosed_interface
+
+		for interface in $(cat iface); do
+			if [ "$choosed_interface" == "$interface" ]; then
+				checker=1
+			fi
+		done; if [ $checker -eq 0 ]; then echo -e "\n${redColour}[!]${endColour}${yellowColour} La interfaz proporcionada no existe${endColour}"; fi
+	done
 
 	rm iface 2>/dev/null
 	echo -ne "\n${yellowColour}[*]${endColour}${grayColour} Nombre del punto de acceso a utilizar (Ej: wifiGratis):${endColour} " && read -r use_ssid
