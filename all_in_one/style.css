@@ -1,0 +1,256 @@
+body{
+  padding:0;
+  margin:0;
+}
+
+html{
+ height:100%;
+ min-height:100%;
+ }
+
+body {
+  /* Location of the image */
+  background-image: url(images/responsive_bg.jpg);
+  
+  /* Image is centered vertically and horizontally at all times */
+  background-position: center center;
+  
+  /* Image doesn't repeat */
+  background-repeat: no-repeat;
+  
+  /* Makes the image fixed in the viewport so that it doesn't move when 
+     the content height is greater than the image height */
+  background-attachment: fixed;
+  
+  /* This is what makes the background image rescale based on its container's size */
+  background-size: cover;
+  
+  /* Pick a solid background color that will be displayed while the background image is loading */
+  background-color:#464646;
+  
+  /* SHORTHAND CSS NOTATION
+   * background: url(background-mobile_bg.jpg) center center cover no-repeat fixed;
+   */
+}
+
+/* For mobile devices */
+@media only screen and (max-width: 767px) {
+  body {
+    /* The file size of this background image is 93% smaller
+     * to improve page load speed on mobile internet connections */
+    background-image: url(images/responsive_mobile_bg.jpg);
+  }
+	}
+
+
+.inner-container {
+  width:400px;
+  height:490px;
+  position:absolute;
+  top:calc(50vh - 220px);
+  left:calc(50vw - 200px);
+  overflow:hidden;
+  background:rgba(0,0,0,0.50);
+}
+
+
+.social-icons {
+    width: 100%;
+    height: auto;
+}
+
+
+.social-icons {
+    width: 100%;
+    height: auto;
+	 }
+
+
+ul li {
+    display:inline-block;
+}
+
+
+.box h1{
+  text-align:center;
+  margin:10px 0;
+  font-size:30px;
+}
+
+
+.icon{
+padding:10px 2px;
+margin:0px 5px;
+
+}
+
+
+/* login text*/
+.box{
+  position:absolute;
+  height:100%;
+  width:100%;
+  font-family:Helvetica;
+  color:#fff;
+  padding:5px 0px;
+  
+ }
+
+ 
+.lock {
+	vertical-align:middle; 
+	margin:0px 10px;
+}
+
+
+.box input{
+  display:block;
+  width:300px;
+  margin:20px auto;
+  padding:10px;
+  background:rgba(0,0,0,0.4);
+  color:#fff;
+  border:0;
+}
+
+
+.box input:focus,.box input:active,.box .button:focus,.box .button:active{
+  outline:none;
+}
+
+
+.box .button{
+  background:#742ECC;
+  border:0;
+  color:#fff;
+  padding:8px;
+  font-size:20px;
+  width:320px;
+  margin:20px auto;
+  display:block;
+  cursor:pointer;
+}
+
+.box .button:active{
+  background:#27ae60;
+}
+
+
+.box p{
+  font-size:14px;
+  text-align:center;
+  padding:4px;
+}
+
+
+.list {
+  display:block;
+  width:320px;
+  margin:20px auto;
+  padding:8px;
+  background:rgba(0,0,0,0.4);
+  color:#fff;
+  border:0;
+ 
+}
+
+
+.list input:focus,.box input:active,.box .button:focus,.box .button:active{
+  outline:none;
+
+}
+
+
+.modalDialog {
+	position: fixed;
+	font-family: Arial, Helvetica, sans-serif;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: rgba(0,0,0,0.8);
+	z-index: 99999;
+	opacity:0;
+	-webkit-transition: opacity 400ms ease-in;
+	-moz-transition: opacity 400ms ease-in;
+	transition: opacity 400ms ease-in;
+	pointer-events: none;
+}
+
+
+
+.modalDialog:target {
+	opacity:1;
+	pointer-events: auto;
+}
+
+.modalDialog > div {
+	width: 400px;
+	position: relative;
+	margin: 10% auto;
+	padding: 5px 20px 13px 20px;
+	border-radius: 10px;
+	background: #fff;
+	background: -moz-linear-gradient(#fff, #999);
+	background: -webkit-linear-gradient(#fff, #999);
+	background: -o-linear-gradient(#fff, #999);
+}
+
+
+.close {
+	background: #606061;
+	color: #FFFFFF;
+	line-height: 25px;
+	position: absolute;
+	right: -12px;
+	text-align: center;
+	top: -10px;
+	width: 24px;
+	text-decoration: none;
+	font-weight: bold;
+	-webkit-border-radius: 12px;
+	-moz-border-radius: 12px;
+	border-radius: 12px;
+	-moz-box-shadow: 1px 1px 3px #000;
+	-webkit-box-shadow: 1px 1px 3px #000;
+	box-shadow: 1px 1px 3px #000;
+}
+
+.close:hover { background: #00d9ff; }
+
+
+.tooltip{
+    display: inline;
+    position: relative;
+}
+
+
+
+.tooltip:hover:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    bottom: 50px;
+    color: #fff;
+    content: attr(title);
+    left: 5%;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 80px;
+}
+
+
+
+.tooltip:hover:before{
+    border: solid;
+    border-color: #333 transparent;
+    border-width: 6px 6px 0 6px;
+    bottom: 44px;
+    content: "";
+    left: 50%;
+    position: absolute;
+    z-index: 99;
+}
+
+
