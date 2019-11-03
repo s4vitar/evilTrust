@@ -46,33 +46,23 @@ function dependencies(){
 	echo -e "\n${yellowColour}[*]${endColour}${grayColour} Comprobando programas necesarios...\n"
 	sleep 1
 
-	if [ "$(command -v php)" ]; then
-		echo -e ". . . . . . . . ${blueColour}[V]${endColour}${grayColour} La herramienta${endColour}${yellowColour} php${endColour}${grayColour} se encuentra instalada"
-		let counter+=1
-	else
-		echo -e "\t${redColour}[X]${endColour}${grayColour} La herramienta${endColour}${yellowColour} php${endColour}${grayColour} no se encuentra instalada"
-	fi; sleep 0.4
+	dependencias=(php dnsmasq hostapd)
 
-        if [ "$(command -v dnsmasq)" ]; then
-                echo -e ". . . . . . . . ${blueColour}[V]${endColour}${grayColour} La herramienta${endColour}${yellowColour} dnsmasq${endColour}${grayColour} se encuentra instalada"
-                let counter+=1
-        else
-                echo -e "\t${redColour}[X]${endColour}${grayColour} La herramienta${endColour}${yellowColour} dnsmasq${endColour}${grayColour} no se encuentra instalada"
-        fi; sleep 0.4
-
-        if [ "$(command -v hostapd)" ]; then
-                echo -e ". . . . . . . . ${blueColour}[V]${endColour}${grayColour} La herramienta${endColour}${yellowColour} hostapd${endColour}${grayColour} se encuentra instalada"
-                let counter+=1
-        else
-                echo -e "\t${redColour}[X]${endColour}${grayColour} La herramienta${endColour}${yellowColour} hostapd${endColour}${grayColour} no se encuentra instalada"
-        fi; sleep 1
+	for programa in "${dependencias[@]}"; do
+		if [ "$(command -v $programa)" ]; then
+			echo -e ". . . . . . . . ${blueColour}[V]${endColour}${grayColour} La herramienta${endColour}${yellowColour} $programa${endColour}${grayColour} se encuentra instalada"
+			let counter+=1
+		else
+			echo -e "${redColour}[X]${endColour}${grayColour} La herramienta${endColour}${yellowColour} $programa${endColour}${grayColour} no se encuentra instalada"
+		fi; sleep 0.4
+	done
 
 	if [ "$(echo $counter)" == "3" ]; then
 		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Comenzando...\n"
 		sleep 3
 	else
 		echo -e "\n${redColour}[!]${endColour}${grayColour} Es necesario contar con las herramientas php, dnsmasq y hostapd instaladas para ejecutar este script${endColour}\n"
-		exit
+		tput cnorm; exit
 	fi
 }
 
