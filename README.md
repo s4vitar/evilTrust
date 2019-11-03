@@ -49,6 +49,7 @@ En este punto será necesario especificar la plantilla con la que se desea traba
 
 **IMPORTANTE**: Para fijar tu propia plantilla, simplemente crea un directorio en el directorio principal del proyecto y especifica su nombre, la herramienta de manera automática montará el servidor web en dicho directorio. La plantilla cliqq-payload dispone de un APK malicioso, ideal para obtener una sesión Meterpreter una vez la víctima la descargue y la ejecute.
 
+**ANOTACIÓN**: La plantilla 'all_in_one' crea una portal cautivo centralizado para iniciar sesión listando todas las redes sociales.
 
 Ya en este punto, se montará el punto de acceso y se dispondrá una ventana a la espera de obtener credenciales:
 
