@@ -47,6 +47,8 @@ En este punto será necesario especificar la plantilla con la que se desea traba
         style="float: left; margin-right: 10px;" />
 </p>
 
+**IMPORTANTE**: Para fijar tu propia plantilla, simplemente crea un directorio en el directorio principal del proyecto y especifica su nombre, la herramienta de manera automática montará el servidor web en dicho directorio. La plantilla cliqq-payload dispone de un APK malicioso, ideal para obtener una sesión Meterpreter una vez la víctima la descargue y la ejecute.
+
 
 Ya en este punto, se montará el punto de acceso y se dispondrá una ventana a la espera de obtener credenciales:
 
