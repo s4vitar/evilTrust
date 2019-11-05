@@ -247,7 +247,7 @@ function guiMode(){
 	rm iface 2>/dev/null
 	use_ssid=$(whiptail --inputbox "Introduce el nombre del punto de acceso a utilizar (Ej: wifiGratis):" 8 78 --title "evilTrust - by S4vitar" 3>&1 1>&2 2>&3)
 	whiptail --title "evilTrust - by S4vitar" --checklist \
-	"Selecciona el canal bajo el cual quieres que el punto de acceso opere" 20 78 12 \
+	"Selecciona el canal bajo el cual quieres que el punto de acceso opere (Presiona la tecla <Espacio> para seleccionar el canal)" 20 78 12 \
 	1 "(Usar este canal) " OFF \
 	2 "(Usar este canal) " OFF \
         3 "(Usar este canal) " OFF \
