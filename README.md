@@ -13,6 +13,8 @@ Esta herramienta dispone de varias plantillas a utilizar, incluyendo una opción
 
 **IMPORTANTE**: No es necesario contar con una conexión cableada, por lo que es posible desplegar el ataque desde cualquier lado en cualquier momento.
 
+**¡AHORA LA HERRAMIENTA CUENTA CON INTERFAZ GRÁFICA!**
+
 ¿Cómo funciona?
 ======
 La herramienta comienza haciendo una comprobación de las utilidades necesarias para desplegar el ataque:
