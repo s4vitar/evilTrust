@@ -305,8 +305,7 @@ function guiMode(){
 
 	whiptail --title "evilTrust - by S4vitar" --msgbox "¡Listo!, hora de escoger tu plantilla" 8 78
 
-        whiptail --title "evilTrust - by S4vitar" --checklist \
-        "Selecciona la plantilla que desees utilizar" 17 103 12 \
+        whiptail --title "evilTrust - by S4vitar" --checklist --separate-output "Selecciona la plantilla que desees utilizar" 20 103 12 \
         facebook-login "Plantilla de inicio de sesión de Facebook" OFF \
         google-login "Plantilla de inicio de sesión de Google" OFF \
         starbucks-login "Plantilla de inicio de sesión de Starbucks" OFF \
