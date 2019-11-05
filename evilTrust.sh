@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# evilTrust v1.0, Author @s4vitar (Marcelo Vázquez)
+# evilTrust v2.0, Author @s4vitar (Marcelo Vázquez)
 
 #Colours
 greenColour="\e[0;32m\033[1m"
